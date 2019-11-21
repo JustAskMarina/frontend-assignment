@@ -1,8 +1,7 @@
 import React from 'react';
 
 const App: React.FC = () => {
-  return (
-  );
-}
+    return <h1>Pika Pika</h1>;
+};
 
 export default App;
