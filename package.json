@@ -1,20 +1,24 @@
 {
-  "name": "frontend-assignment",
-  "author": {
-    "name": "Walter Barbagallo",
-    "email": "walter.barbagallo@satispay.com"
-  },
-  "contributors": [
-    {
-      "name": "Alessio Dionisi",
-      "email": "alessio.dionisi@satispay.com"
-    }
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "workspaces": [
-    "packages/*"
-  ],
-  "private": true
+    "name": "frontend-assignment",
+    "author": "Walter Barbagallo <walter.barbagallo@satispay.com>",
+    "contributors": [
+        {
+            "name": "Alessio Dionisi",
+            "email": "alessio.dionisi@satispay.com"
+        },
+        {
+            "name": "Marina Bellacicco",
+            "email": "marina.bellacicco@outlook.it"
+        }
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "workspaces": [
+        "packages/*"
+    ],
+    "private": true,
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/JustAskMarina/frontend-assignment.git"
 }
