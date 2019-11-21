@@ -28,29 +28,29 @@ For the server you can start the the app with `yarn workspace @frontend-assignme
 
 The server schema follows the [relay](https://facebook.github.io/relay/graphql/connections.htm) standard for connection, simplified.
 
-Implement `pokemonsByType` query: it accepts a `type: String` parameter and return a connection of Pokèmons.  
-If you feel confident you can add pagination parameters `after: String` and `limit: Int`.
+[x]Implement `pokemonsByType` query: it accepts a `type: String` parameter and return a connection of Pokèmons.  
+[ ]If you feel confident you can add pagination parameters `after: String` and `limit: Int`.
 
 ### Client side
 
 Use components in `antd` library to create a page with this capabilities:
 
-- possibility to search Pokémons by name
-- possibility to filter Pokémons by type
-- display Pokémons search result in a table with columns:
-  - name
-  - type
-  - classification
-- if `hasNextPage` is true add the possibility to load more results.
+-   [ ] possibility to search Pokémons by name
+-   [ ] possibility to filter Pokémons by type
+-   [ ] display Pokémons search result in a table with columns:
+    -   [ ] name
+    -   [ ] type
+    -   [ ] classification
+-   [ ] if `hasNextPage` is true add the possibility to load more results.
 
 ## Submission
 
 You can submit your work through:
 
-- [GitHub](https://github.com)
-- [CodeSandbox](https://codesandbox.io)
-- [Glitch](https://glitch.com)
-- ...other
+-   [GitHub](https://github.com)
+-   [CodeSandbox](https://codesandbox.io)
+-   [Glitch](https://glitch.com)
+-   ...other
 
 The code must be available to us in order to evaluate your submission.
 
@@ -58,11 +58,11 @@ The code must be available to us in order to evaluate your submission.
 
 Our goal is to find answers to those questions:
 
-- Do you understand the TypeScript language and more in general web technologies?
-- Can you design interfaces that are clear and easy to use?
-- Do you master your working environment?
+-   Do you understand the TypeScript language and more in general web technologies?
+-   Can you design interfaces that are clear and easy to use?
+-   Do you master your working environment?
 
 Due to the limited time consider the followings:
 
-- It is NOT important to have a fully functional application at the end.
-- We'll develop just for the latest version of Google Chrome.
+-   It is NOT important to have a fully functional application at the end.
+-   We'll develop just for the latest version of Google Chrome.
