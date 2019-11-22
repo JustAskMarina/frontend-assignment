@@ -1,23 +1,31 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
-import { Query } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 
 const GET_POKEMON = gql`
     query {
-        movie(id: 1) {
-            id
-            title
+        pokemons(q: "Bulbasaur") {
+            edges {
+                node {
+                    id
+                    types
+                }
+            }
         }
     }
 `;
 
-export const App: React.FC = () => (
-    <Query query={GET_POKEMON}>
-        {({ loading, error, data }) => {
-            if (loading) return <div>Loading...</div>;
-            if (error) return <div>Error :(</div>;
-
-            return <div>{data}</div>;
-        }}
-    </Query>
-);
+export default function App() {
+    const { loading, error, data } = useQuery(GET_POKEMON);
+    if (loading) return <p>Loading ...</p>;
+    if (error) return <p>Error</p>;
+    return (
+        <h1>
+            HENLO{' '}
+            {data.pokemons.edges.map((el: any) => (
+                <div>{el.node.id}</div>
+            ))}
+            !
+        </h1>
+    );
+}

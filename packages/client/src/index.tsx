@@ -8,7 +8,7 @@ const client = new ApolloClient({
     uri: 'http://localhost:4000'
 });
 
-const ApolloApp = (AppComponent) => (
+const ApolloApp = (AppComponent: any) => (
     <ApolloProvider client={client}>
         <AppComponent />
     </ApolloProvider>

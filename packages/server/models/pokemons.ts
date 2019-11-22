@@ -45,7 +45,6 @@ export function query(args: { after?: string; limit?: number; q?: string }): Con
 
 export function queryByType(args: { type: string }): Connection<Pokemon> {
     const { type } = args;
-    console.log(typeof type, type);
     const filterByType: (as: Pokemon[]) => Pokemon[] = A.filter((p) =>
         p.types.map((t) => t.toLowerCase()).includes(type.toLowerCase())
     );
