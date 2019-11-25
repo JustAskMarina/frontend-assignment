@@ -2,7 +2,6 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import { Layout, Input, Menu } from 'antd';
-import { string } from 'prop-types';
 
 const { Sider } = Layout;
 const { Search } = Input;
@@ -19,7 +18,7 @@ const GET_POKEMON_TYPES = gql`
     }
 `;
 
-export default function Sidebar(props: any) {
+export default function SiderComponent(props: any) {
     const { loading, error, data } = useQuery(GET_POKEMON_TYPES);
     if (loading) return <p>Loading ...</p>;
     if (error) return <p>Error</p>;
@@ -27,20 +26,12 @@ export default function Sidebar(props: any) {
     types.unshift('All');
 
     return (
-        <Sider
-            breakpoint='lg'
-            collapsedWidth='0'
-            style={{
-                overflow: 'auto',
-                height: '100vh',
-                position: 'fixed',
-                left: 0
-            }}
-        >
-            <br />
-            <Search placeholder='Search by name' onSearch={(value) => console.log(value)} style={{ width: 200 }} />
-            <br />
-            <br />
+        <Sider breakpoint='lg' collapsedWidth='0'>
+            <Search
+                placeholder='Search by name'
+                onSearch={(value) => console.log(value)}
+                style={{ width: 168, margin: 16 }}
+            />
             <Menu theme='dark' mode='inline' defaultSelectedKeys={['0']}>
                 {types.map((type: any, index: number) => {
                     return (
