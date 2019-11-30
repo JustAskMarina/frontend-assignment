@@ -6,8 +6,8 @@ import { gql } from 'apollo-boost';
 const { Content } = Layout;
 
 const GET_POKEMON = gql`
-    query {
-        pokemons(limit: 150) {
+    query($limit: Int!, $name: String!) {
+        pokemons(limit: $limit, q: $name) {
             edges {
                 node {
                     id
@@ -54,12 +54,15 @@ const columns = [
     }
 ];
 
-const ContentComponent: React.FC<{ currentType: string }> = ({ currentType }) => {
-    const { loading, error, data } = useQuery(GET_POKEMON);
+const ContentComponent: React.FC<{ currentType: string; searchedName: string }> = ({ currentType, searchedName }) => {
+    const { loading, error, data } = useQuery(GET_POKEMON, {
+        variables: { limit: 150, name: searchedName },
+        errorPolicy: 'all'
+    });
     //useQuery(GET_POKEMON_TYPES, { variables: { type: currentType } });
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error</p>;
+    if (loading) return null;
+    if (error) return <p>{'Error' + error}</p>;
 
     return (
         <Content

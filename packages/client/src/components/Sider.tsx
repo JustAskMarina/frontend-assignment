@@ -18,25 +18,28 @@ const GET_POKEMON_TYPES = gql`
     }
 `;
 
-const SiderComponent: React.FC<{ currentType: string; onClickCallback: any }> = ({ currentType, onClickCallback }) => {
+const SiderComponent: React.FC<{ currentType: string; searchedName: string; filterByName: any; filterByType: any }> = ({
+    currentType,
+    searchedName,
+    filterByName,
+    filterByType
+}) => {
     const { loading, error, data } = useQuery(GET_POKEMON_TYPES);
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error</p>;
+    if (loading) return null;
+    if (error) return <p>{'Error' + error}</p>;
     let types = [...new Set(data.pokemons.edges.flatMap((el: any) => el.node.types))].sort();
     types.unshift('All');
 
     return (
         <Sider breakpoint='lg' collapsedWidth='0'>
-            <Search
-                placeholder='Search by name'
-                onSearch={(value) => console.log(value)}
-                style={{ width: 168, margin: 16 }}
-            />
+            <Search placeholder='Search by name' onSearch={filterByName} style={{ width: 168, margin: 16 }} />
             <Menu
                 theme='dark'
                 mode='inline'
-                onClick={onClickCallback}
-                defaultSelectedKeys={[types.indexOf(currentType).toString()]}
+                onClick={filterByType}
+                defaultSelectedKeys={
+                    currentType === '' ? [types.indexOf('All').toString()] : [types.indexOf(currentType).toString()]
+                }
             >
                 {types.map((type: any, index: number) => {
                     return (

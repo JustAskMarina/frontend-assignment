@@ -35,12 +35,12 @@ The server schema follows the [relay](https://facebook.github.io/relay/graphql/c
 
 Use components in `antd` library to create a page with this capabilities:
 
--   [ ] possibility to search Pokémons by name
+-   [x] possibility to search Pokémons by name
 -   [ ] possibility to filter Pokémons by type
--   [ ] display Pokémons search result in a table with columns:
-    -   [ ] name
-    -   [ ] type
-    -   [ ] classification
+-   [x] display Pokémons search result in a table with columns:
+    -   [x] name
+    -   [x] type
+    -   [x] classification
 -   [ ] if `hasNextPage` is true add the possibility to load more results.
 
 ## Submission
