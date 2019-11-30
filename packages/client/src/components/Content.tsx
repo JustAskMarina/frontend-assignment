@@ -1,8 +1,7 @@
 import React from 'react';
-import { Layout } from 'antd';
+import { Layout, Table, Divider } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { response } from 'express';
 
 const { Content } = Layout;
 
@@ -14,6 +13,7 @@ const GET_POKEMON = gql`
                     id
                     name
                     types
+                    classification
                 }
             }
         }
@@ -28,11 +28,30 @@ const GET_POKEMON_TYPES = gql`
                     id
                     name
                     types
+                    classification
                 }
             }
         }
     }
 `;
+
+const columns = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name'
+    },
+    {
+        title: 'Types',
+        dataIndex: 'types',
+        key: 'types'
+    },
+    {
+        title: 'Classification',
+        dataIndex: 'classification',
+        key: 'classification'
+    }
+];
 
 const ContentComponent: React.FC<{ currentType: string }> = ({ currentType }) => {
     const { loading, error, data } = useQuery(GET_POKEMON);
@@ -40,6 +59,8 @@ const ContentComponent: React.FC<{ currentType: string }> = ({ currentType }) =>
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
+
+    console.log(data);
 
     return (
         <Content
@@ -49,9 +70,7 @@ const ContentComponent: React.FC<{ currentType: string }> = ({ currentType }) =>
                 background: '#fff'
             }}
         >
-            {data.pokemons.edges.map((el: any) => (
-                <div>{el.node.name}</div>
-            ))}
+            <Table dataSource={data.pokemons.edges.map((el: any) => el.node)} columns={columns} />
         </Content>
     );
 };
