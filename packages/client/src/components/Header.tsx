@@ -4,7 +4,7 @@ import { Layout, Typography, Icon } from 'antd';
 const { Header } = Layout;
 const { Title } = Typography;
 
-export default function HeaderComponent(props: any) {
+const HeaderComponent: React.FC = (props: any) => {
     return (
         <Header style={{ backgroundColor: '#fff', padding: 0 }}>
             <Icon
@@ -21,4 +21,6 @@ export default function HeaderComponent(props: any) {
             <Title style={{ textAlign: 'center', position: 'relative', left: '-36px' }}>Pokémon App</Title>
         </Header>
     );
-}
+};
+
+export default HeaderComponent;

@@ -18,9 +18,9 @@ const GET_POKEMON_TYPES = gql`
     }
 `;
 
-export default function SiderComponent(props: any) {
+const SiderComponent: React.FC<{ currentType: string; onClickCallback: any }> = ({ currentType, onClickCallback }) => {
     const { loading, error, data } = useQuery(GET_POKEMON_TYPES);
-    if (loading) return <p>Loading ...</p>;
+    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
     let types = [...new Set(data.pokemons.edges.flatMap((el: any) => el.node.types))].sort();
     types.unshift('All');
@@ -32,7 +32,12 @@ export default function SiderComponent(props: any) {
                 onSearch={(value) => console.log(value)}
                 style={{ width: 168, margin: 16 }}
             />
-            <Menu theme='dark' mode='inline' defaultSelectedKeys={['0']}>
+            <Menu
+                theme='dark'
+                mode='inline'
+                onClick={onClickCallback}
+                defaultSelectedKeys={[types.indexOf(currentType).toString()]}
+            >
                 {types.map((type: any, index: number) => {
                     return (
                         <Menu.Item key={index}>
@@ -43,4 +48,5 @@ export default function SiderComponent(props: any) {
             </Menu>
         </Sider>
     );
-}
+};
+export default SiderComponent;
