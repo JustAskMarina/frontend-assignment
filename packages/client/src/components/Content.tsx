@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Table, Divider } from 'antd';
+import { Layout, Table, Tag } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
@@ -7,7 +7,7 @@ const { Content } = Layout;
 
 const GET_POKEMON = gql`
     query {
-        pokemons {
+        pokemons(limit: 150) {
             edges {
                 node {
                     id
@@ -44,7 +44,8 @@ const columns = [
     {
         title: 'Types',
         dataIndex: 'types',
-        key: 'types'
+        key: 'types',
+        render: (types: string[]) => types.map((type: string) => <Tag key={type}>{type}</Tag>)
     },
     {
         title: 'Classification',
@@ -60,17 +61,15 @@ const ContentComponent: React.FC<{ currentType: string }> = ({ currentType }) =>
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error</p>;
 
-    console.log(data);
-
     return (
         <Content
             style={{
-                margin: '0 16px',
+                margin: '24px 16px',
                 padding: 24,
                 background: '#fff'
             }}
         >
-            <Table dataSource={data.pokemons.edges.map((el: any) => el.node)} columns={columns} />
+            <Table dataSource={data.pokemons.edges.map((el: any) => el.node)} columns={columns} rowKey='id' />
         </Content>
     );
 };
