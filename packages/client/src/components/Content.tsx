@@ -6,8 +6,8 @@ import { gql } from 'apollo-boost';
 const { Content } = Layout;
 
 const GET_POKEMON = gql`
-    query($limit: Int!, $name: String!) {
-        pokemons(limit: $limit, q: $name) {
+    query($name: String!) {
+        pokemons(q: $name) {
             edges {
                 node {
                     id
@@ -20,8 +20,8 @@ const GET_POKEMON = gql`
     }
 `;
 
-const GET_POKEMON_TYPES = gql`
-    query {
+const GET_POKEMON_BY_TYPE = gql`
+    query($type: String!) {
         pokemonsByType(type: $type) {
             edges {
                 node {
@@ -55,11 +55,11 @@ const columns = [
 ];
 
 const ContentComponent: React.FC<{ currentType: string; searchedName: string }> = ({ currentType, searchedName }) => {
-    const { loading, error, data } = useQuery(GET_POKEMON, {
-        variables: { limit: 150, name: searchedName },
-        errorPolicy: 'all'
+    let query = currentType === '' ? GET_POKEMON : GET_POKEMON_BY_TYPE;
+    let vars = currentType === '' ? { name: searchedName } : { type: currentType };
+    const { loading, error, data } = useQuery(query, {
+        variables: vars
     });
-    //useQuery(GET_POKEMON_TYPES, { variables: { type: currentType } });
 
     if (loading) return null;
     if (error) return <p>{'Error' + error}</p>;
@@ -72,7 +72,15 @@ const ContentComponent: React.FC<{ currentType: string; searchedName: string }> 
                 background: '#fff'
             }}
         >
-            <Table dataSource={data.pokemons.edges.map((el: any) => el.node)} columns={columns} rowKey='id' />
+            <Table
+                dataSource={
+                    currentType === ''
+                        ? data.pokemons.edges.map((el: any) => el.node)
+                        : data.pokemonsByType.edges.map((el: any) => el.node)
+                }
+                columns={columns}
+                rowKey='id'
+            />
         </Content>
     );
 };

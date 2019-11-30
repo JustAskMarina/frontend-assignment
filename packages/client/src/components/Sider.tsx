@@ -18,9 +18,8 @@ const GET_POKEMON_TYPES = gql`
     }
 `;
 
-const SiderComponent: React.FC<{ currentType: string; searchedName: string; filterByName: any; filterByType: any }> = ({
+const SiderComponent: React.FC<{ currentType: string; filterByName: any; filterByType: any }> = ({
     currentType,
-    searchedName,
     filterByName,
     filterByType
 }) => {
