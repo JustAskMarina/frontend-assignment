@@ -29,7 +29,7 @@ For the server you can start the the app with `yarn workspace @frontend-assignme
 The server schema follows the [relay](https://facebook.github.io/relay/graphql/connections.htm) standard for connection, simplified.
 
 [x]Implement `pokemonsByType` query: it accepts a `type: String` parameter and return a connection of Pokèmons.  
-[ ]If you feel confident you can add pagination parameters `after: String` and `limit: Int`.
+[x]If you feel confident you can add pagination parameters `after: String` and `limit: Int`.
 
 ### Client side
 
@@ -41,7 +41,7 @@ Use components in `antd` library to create a page with this capabilities:
     -   [x] name
     -   [x] type
     -   [x] classification
--   [ ] if `hasNextPage` is true add the possibility to load more results.
+-   [x] if `hasNextPage` is true add the possibility to load more results.
 
 ## Submission
 

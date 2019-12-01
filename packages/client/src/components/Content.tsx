@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Layout, Table, Tag, Button } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
@@ -63,16 +63,15 @@ const columns = [
 ];
 
 const ContentComponent: React.FC<{ currentType: string; searchedName: string }> = ({ currentType, searchedName }) => {
-    //const [limit, setLimit] = useState('10');
-    let query = currentType === '' ? GET_POKEMON : GET_POKEMON_BY_TYPE;
-    let vars = currentType === '' ? { name: searchedName, after: '000' } : { type: currentType };
+    let query = currentType ? GET_POKEMON_BY_TYPE : GET_POKEMON;
+    let vars = currentType ? { type: currentType, after: null } : { name: searchedName, after: null };
     const { loading, error, data, fetchMore } = useQuery(query, {
         variables: vars
     });
     if (loading) return null;
     if (error) return <p>{'Error' + error}</p>;
 
-    const { pageInfo, edges } = currentType === '' ? data.pokemons : data.pokemonsByType;
+    const { pageInfo, edges } = currentType ? data.pokemonsByType : data.pokemons;
 
     return (
         <Content
@@ -91,11 +90,16 @@ const ContentComponent: React.FC<{ currentType: string; searchedName: string }> 
                     size='large'
                     onClick={() => {
                         fetchMore({
-                            variables: {
-                                after: pageInfo.endCursor
-                            },
+                            query: query,
+                            variables: currentType
+                                ? { type: currentType, after: pageInfo.endCursor }
+                                : { name: searchedName, after: pageInfo.endCursor },
                             updateQuery: (prev: any, { fetchMoreResult }) => {
-                                console.log(edges, fetchMoreResult);
+                                let prevEdges = prev[currentType ? 'pokemonsByType' : 'pokemons'].edges;
+                                let newEdges = fetchMoreResult[currentType ? 'pokemonsByType' : 'pokemons'].edges;
+                                let merge = Object.assign({}, prev, fetchMoreResult);
+                                merge[currentType ? 'pokemonsByType' : 'pokemons'].edges = [...prevEdges, ...newEdges];
+                                return merge;
                             }
                         });
                     }}

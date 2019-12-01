@@ -44,8 +44,8 @@ export function query(args: { after?: string; limit?: number; q?: string }): Con
     return toConnection(results, limit);
 }
 
-export function queryByType(args: { type: string; after?: string }): Connection<Pokemon> {
-    const { type, after } = args;
+export function queryByType(args: { type: string; after?: string; limit?: number }): Connection<Pokemon> {
+    const { type, after, limit = SIZE } = args;
 
     const filterByType: (as: Pokemon[]) => Pokemon[] = A.filter((p) =>
         p.types.map((t) => t.toLowerCase()).includes(type.toLowerCase())
@@ -66,7 +66,7 @@ export function queryByType(args: { type: string; after?: string }): Connection<
         data,
         filterByType,
         sliceByAfter,
-        slice(0, SIZE + 1)
+        slice(0, limit + 1)
     );
-    return toConnection(results, SIZE);
+    return toConnection(results, limit);
 }
