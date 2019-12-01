@@ -28,8 +28,8 @@ For the server you can start the the app with `yarn workspace @frontend-assignme
 
 The server schema follows the [relay](https://facebook.github.io/relay/graphql/connections.htm) standard for connection, simplified.
 
-[x]Implement `pokemonsByType` query: it accepts a `type: String` parameter and return a connection of Pokèmons.  
-[x]If you feel confident you can add pagination parameters `after: String` and `limit: Int`.
+[x] Implement `pokemonsByType` query: it accepts a `type: String` parameter and return a connection of Pokèmons.  
+[x] If you feel confident you can add pagination parameters `after: String` and `limit: Int`.
 
 ### Client side
 
