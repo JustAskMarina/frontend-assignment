@@ -13,7 +13,7 @@ interface Pokemon {
     classification: string;
 }
 
-const SIZE = 150;
+const SIZE = 10;
 
 export function query(args: { after?: string; limit?: number; q?: string }): Connection<Pokemon> {
     const { after, q, limit = SIZE } = args;
@@ -44,16 +44,28 @@ export function query(args: { after?: string; limit?: number; q?: string }): Con
     return toConnection(results, limit);
 }
 
-export function queryByType(args: { type: string }): Connection<Pokemon> {
-    const { type } = args;
+export function queryByType(args: { type: string; after?: string }): Connection<Pokemon> {
+    const { type, after } = args;
 
     const filterByType: (as: Pokemon[]) => Pokemon[] = A.filter((p) =>
         p.types.map((t) => t.toLowerCase()).includes(type.toLowerCase())
     );
 
+    const sliceByAfter: (as: Pokemon[]) => Pokemon[] =
+        after === undefined
+            ? identity
+            : (as) =>
+                  pipe(
+                      as,
+                      A.findIndex((a) => a.id === after),
+                      O.map((a) => a + 1),
+                      O.fold(() => as, (idx) => as.slice(idx))
+                  );
+
     const results: Pokemon[] = pipe(
         data,
         filterByType,
+        sliceByAfter,
         slice(0, SIZE + 1)
     );
     return toConnection(results, SIZE);

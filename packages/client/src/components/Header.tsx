@@ -1,24 +1,13 @@
 import React from 'react';
-import { Layout, Typography, Icon } from 'antd';
+import { Layout, Typography } from 'antd';
 
 const { Header } = Layout;
 const { Title } = Typography;
 
-const HeaderComponent: React.FC = (props: any) => {
+const HeaderComponent: React.FC = () => {
     return (
-        <Header style={{ backgroundColor: '#fff', padding: 0 }}>
-            <Icon
-                type='menu-fold'
-                style={{
-                    fontSize: 24,
-                    lineHeight: '64px',
-                    padding: '0 24px',
-                    cursor: 'pointer',
-                    transition: 'color 0.3s',
-                    float: 'left'
-                }}
-            />
-            <Title style={{ textAlign: 'center', position: 'relative', left: '-36px' }}>Pokémon App</Title>
+        <Header style={{ backgroundColor: '#fff', padding: 0, textAlign: 'center' }}>
+            <Title>Pokémon App</Title>
         </Header>
     );
 };
